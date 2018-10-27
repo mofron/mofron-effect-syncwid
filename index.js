@@ -61,7 +61,7 @@ mf.effect.SyncWid = class extends mf.Effect {
      * @return (string) offset value
      */
     offset (prm) {
-        try { return this.member('offset', 'string', prm, '0rem'); } catch (e) {
+        try { return this.member('offset', 'string', prm); } catch (e) {
             console.error(e.stack);
             throw e;
         }
