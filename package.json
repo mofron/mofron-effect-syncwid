@@ -1,6 +1,6 @@
 {
   "name": "mofron-effect-syncwid",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "synchronization width effect for mofron",
   "main": "index.js",
   "scripts": {

@@ -38,7 +38,7 @@ mf.effect.SyncWid = class extends mf.Effect {
             let ret = this.member('targetComp', 'Component', prm);
             if (undefined !== prm) {
                 let syn_fnc = (p1,p2,sync) => {
-                    try { sync.execute(true); } catch (e) {
+                    try { sync.execute(); } catch (e) {
                         console.error(e.stack);
                         throw e;
                     }
@@ -67,22 +67,17 @@ mf.effect.SyncWid = class extends mf.Effect {
         }
     }
     
-    /**
-     * synchronize width size
-     *
-     * @note private method
-     */
-    enable (cmp) {
+    contents (cmp) {
         try {
             if (null === this.targetComp()) {
                 this.targetComp(this.component().parent());
             }
-            
+
             let tgt_wid = this.targetComp().sizeValue('width');
             if (null === tgt_wid) {
                 return;
             }
-            
+
             if ( (null === this.offset()) ||
                  (tgt_wid.type() !== mf.func.getSize(this.offset()).type()) ) {
                 cmp.width(tgt_wid.toString());
@@ -96,8 +91,6 @@ mf.effect.SyncWid = class extends mf.Effect {
             throw e;
         }
     }
-    
-    disable () {}
 }
 module.exports = mf.effect.SyncWid;
 /* end of file */
