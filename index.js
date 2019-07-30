@@ -73,7 +73,7 @@ mf.effect.SyncWid = class extends mf.Effect {
                 this.targetComp(this.component().parent());
             }
 
-            let tgt_wid = this.targetComp().sizeValue('width');
+            let tgt_wid = mf.func.cmpSize(this.targetComp(), "width");
             if (null === tgt_wid) {
                 return;
             }
