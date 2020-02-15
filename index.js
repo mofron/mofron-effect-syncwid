@@ -1,23 +1,31 @@
 /**
  * @file mofron-effect-syncwid/index.js
  * @brief synchronize width of target component and width of effect component
- * @author simpart
+ * @license MIT
  */
-const mf = require('mofron');
-mf.effect.SyncWid = class extends mf.Effect {
+const comutl = mofron.util.common;
+
+module.exports = class extends mofron.class.Effect {
     /**
      * initialize effect
      *
-     * @param p1 (object) effect option
-     * @param p1 (Component) sync target component
-     * @param p2 (string) offset size (css value)
+     * @param (mixed) ConfArg: targetComp,offset parameter
+     *                key-value: effect config
+     * @short targetComp,offset
+     * @type private
      */
-    constructor (po, p2) {
+    constructor (prm) {
         try {
             super();
-            this.prmMap(['targetComp', 'offset']);
+            this.shortForm('targetComp','offset');
             this.name('SyncWid');
-            this.prmOpt(po, p2);
+            /* init config */
+	    this.confmng().add("targetComp", { type: "Component" });
+	    this.confmng().add("offset", { type: "size" }); 
+	    /* set config */
+	    if (undefined !== prm) {
+                this.config(prm);
+	    }
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -25,27 +33,30 @@ mf.effect.SyncWid = class extends mf.Effect {
     }
     
     /**
-     * setter/getter for width listen target component
+     * setter/getter for width listen target component 
      * it triggers this effect when width of target component was changed.
      *
-     * @param prm (Component) target component
-     * @param prm (undefined) call as getter
-     * @return (Component) target component
-     * @return (null) not set yet
+     * @param (Component) target component
+     *                    undefined: call as getter
+     * @return (mixed) Component: target component
+     *                 null: not set
+     * @type parameter
      */
     targetComp (prm) {
         try {
-            let ret = this.member('targetComp', 'Component', prm);
-            if (undefined !== prm) {
+	    let ret = this.confmng("targetComp", prm);
+	    if (undefined !== prm) {
                 let syn_fnc = (p1,p2,sync) => {
-                    try { sync.execute(); } catch (e) {
+                    try {
+                        sync.execute();
+                    } catch (e) {
                         console.error(e.stack);
                         throw e;
                     }
                 }
-                prm.styleTgt().styleListener('width', syn_fnc, this);
+                prm.styleDom().style().listener('width', syn_fnc, this);
             }
-            return ret;
+	    return ret;
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -53,44 +64,42 @@ mf.effect.SyncWid = class extends mf.Effect {
     }
     
     /**
-     * setter/getter offset value
+     * offset value setter/getter
      * this value is used for width adjustment
      *
-     * @param prm (string) css style size value (default is '0rem')
-     * @param prm (undefined) call as getter
-     * @return (string) offset value
+     * @param (string(size)) offset value (default is '0rem')
+     *                       undefined: call as getter
+     * @return (mixed) string: offset value
+     *                 null: not set
+     * @type parameter
      */
     offset (prm) {
-        try { return this.member('offset', 'string', prm); } catch (e) {
+        try {
+	    return this.confmng('offset', prm);
+	} catch (e) {
             console.error(e.stack);
             throw e;
         }
     }
     
+    /**
+     * effect contents
+     * 
+     * @param (mofron.class.Component) effect target component
+     * @type private
+     */
     contents (cmp) {
         try {
             if (null === this.targetComp()) {
                 this.targetComp(this.component().parent());
             }
-
-            let tgt_wid = mf.func.cmpSize(this.targetComp(), "width");
-            if (null === tgt_wid) {
-                return;
-            }
-
-            if ( (null === this.offset()) ||
-                 (tgt_wid.type() !== mf.func.getSize(this.offset()).type()) ) {
-                cmp.width(tgt_wid.toString());
-            } else {
-                cmp.width(
-                    mf.func.sizeSum(this.targetComp().width(), this.offset())
-                );
-            }
+            cmp.width(
+                comutl.sizesum(this.targetComp().width(), this.offset())
+            );
         } catch (e) {
             console.error(e.stack);
             throw e;
         }
     }
 }
-module.exports = mf.effect.SyncWid;
 /* end of file */

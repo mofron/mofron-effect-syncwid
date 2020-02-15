@@ -1,6 +1,6 @@
 {
   "name": "mofron-effect-syncwid",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "synchronization width effect for mofron",
   "main": "index.js",
   "scripts": {
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/simpart/mofron-effect-syncwid.git"
+    "url": "git+https://github.com/mofron/mofron-effect-syncwid.git"
   },
   "keywords": [
-    "front-end"
+    "front-end","mofron"
   ],
   "author": "simparts",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/simpart/mofron-effect-syncwid/issues"
+    "url": "https://github.com/mofron/mofron-effect-syncwid/issues"
   },
-  "homepage": "https://github.com/simpart/mofron-effect-syncwid#readme"
+  "homepage": "https://github.com/mofron/mofron-effect-syncwid#readme"
 }
