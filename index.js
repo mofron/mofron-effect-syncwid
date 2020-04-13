@@ -9,22 +9,25 @@ module.exports = class extends mofron.class.Effect {
     /**
      * initialize effect
      *
-     * @param (mixed) ConfArg: targetComp,offset parameter
-     *                key-value: effect config
+     * @param (mixed) targetComp config parameter
+     *                dict: effect config list
+     * @param (string(size)) offset config parameter
      * @short targetComp,offset
      * @type private
      */
-    constructor (prm) {
+    constructor (p1, p2) {
         try {
             super();
             this.shortForm('targetComp','offset');
             this.name('SyncWid');
+            
             /* init config */
 	    this.confmng().add("targetComp", { type: "Component" });
 	    this.confmng().add("offset", { type: "size" }); 
+            
 	    /* set config */
-	    if (undefined !== prm) {
-                this.config(prm);
+	    if (0 < arguments.length) {
+                this.config(p1,p2);
 	    }
         } catch (e) {
             console.error(e.stack);
