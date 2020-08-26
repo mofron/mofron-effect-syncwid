@@ -11,11 +11,11 @@ npm install mofron mofron-effect-syncwid
 
 # Sample
 ```html
-<require>
+<setting>
     <tag load="mofron-comp-frame">Frame</tag>
     <tag load="mofron-comp-button">Button</tag>
     <tag load="mofron-effect-syncwid">SyncWid</tag>
-</require>
+</setting>
 
 <Frame name=frame width=2.5rem>
     <Button effect=SyncWid:(@frame,-0.02rem)>SyncWid effect</Button>

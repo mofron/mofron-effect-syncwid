@@ -19,7 +19,7 @@ module.exports = class extends mofron.class.Effect {
         try {
             super();
             this.shortForm('targetComp','offset');
-            this.name('SyncWid');
+            this.modname('SyncWid');
             
             /* init config */
 	    this.confmng().add("targetComp", { type: "Component" });
